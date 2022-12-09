@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Архив статей</title>
+     <link rel="stylesheet" href="{{ STATIC_URL }}/static/css/article1.css">
+</head>
+<body>
+  <div class="header">
+      <img src="{{ STATIC_URL }}/static/1200px-NeXT_logo.png" height="120px"/>
+  </div>
+  <div class="archive">
+      {% for post in posts %}
+        <div class="post">
+                <a href="#" class="fold-button" style="float: right">свернуть</a>
+            <div class="one-post">
+            <h2 class="post-title">
+                <a class="post-title" href="/article/{{ post.id }}">{{ post.title }}</a>
+            </h2>
+            <div class="article-info">
+                <div class="article-author">{{ post.author.username }}</div>
+                <div class="article-created-date">{{ post.created_date }}</div>
+            </div>
+                <p class="article-text">{{ post.get_excerpt }}</p>
+            </div>
+        </div>
+      {% endfor %}
+      <div align="center">
+        <ul id="create">
+            {% if request.user.is_authenticated %}
+                <br><a href="article/add">Создать статью</a>
+                <br><a href="logout/">Выйти</a>
+            {% else %}
+                <br><a href="login/">Войти</a>
+                <br><a href="registration/">Регистрация</a>
+            {% endif %}
+      </ul>
+      </div>
+  </div>
+<script src="{{ STATIC_URL }}/static/js/helloworld1.js"></script>
+<script src="{{ STATIC_URL }}/static/js/fold-post.js"></script>
+</body>
+</html>
+
+<!--          {% for description in links %}-->
+<!--            <p><a href="{{ description.ref }}">{{ description.text }}</a></p>-->
+<!--          {% endfor %}-->
